@@ -11,16 +11,16 @@ jobs:
       - name: Install pnpm
         run: corepack enable && corepack prepare pnpm@latest --activate
       - name: Install dependencies
-        run: install && sleep 10
+        run: pnpm install
       - name: Run unit tests
-        run: test:unit && sleep 30
+        run: pnpm test:unit
       - name: Run integration tests
-        run: test:integration && sleep 25
+        run: pnpm test:integration
       - name: Run e2e tests
-        run: test:e2e && sleep 25
+        run: pnpm test:e2e
       - name: Build project
-        run: build && sleep 25
+        run: pnpm build
       - name: Deploy to production
-        run: deploy && sleep 25
+        run: pnpm deploy
       - name: Send notifications
-        run: notify && sleep 25
+        run: pnpm notify
