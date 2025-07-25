@@ -1,0 +1,18 @@
+name: Demo Build
+on:
+  workflow_dispatch: {}
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        run: echo "Checkout code" && sleep 5
+      - name: Install dependencies
+        run: echo "Install dependencies" && sleep 10
+      - name: Running unit tests
+        run: echo "Running unit tests" && sleep 30
+      - name: Build project
+        run: echo "Build project" && sleep 15

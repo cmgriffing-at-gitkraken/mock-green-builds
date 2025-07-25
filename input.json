@@ -1,0 +1,8 @@
+{
+  "steps": [
+    { "name": "Checkout code", "duration": 5 },
+    { "name": "Install dependencies", "duration": 10 },
+    { "name": "Running unit tests", "duration": 30 },
+    { "name": "Build project", "duration": 15 }
+  ]
+} 

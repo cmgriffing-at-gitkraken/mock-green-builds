@@ -1,0 +1,24 @@
+{
+  "name": "mock-green-builds",
+  "version": "1.0.0",
+  "description": "CLI tool to generate GitHub Actions workflow from JSON steps.",
+  "main": "dist/generate-workflow.js",
+  "bin": {
+    "generate-workflow": "dist/generate-workflow.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "tsx src/generate-workflow.ts"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "tsx": "^4.7.0",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "yaml": "^2.3.0",
+    "zod": "^3.22.4"
+  }
+} 
