@@ -65,7 +65,7 @@ workflowSteps.push({
 steps.forEach((step, idx) => {
   workflowSteps.push({
     name: step.name,
-    run: `${step.command} && sleep ${step.duration}`,
+    run: `pnpm ${step.command}`,
   });
 });
 
