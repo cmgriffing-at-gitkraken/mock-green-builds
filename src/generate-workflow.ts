@@ -43,18 +43,31 @@ if (!parsed.success) {
 
 const steps = parsed.data.steps;
 
-// Build the workflow object
-const workflowSteps = steps.map((step: { name: string; duration: number; command: string }) => {
-  if (step.name.toLowerCase() === 'checkout code') {
-    return {
-      name: step.name,
-      uses: 'actions/checkout@v4',
-    };
-  }
-  return {
+// Build the workflow steps
+const workflowSteps: any[] = [];
+
+// Add checkout step if present
+const checkoutStepIdx = steps.findIndex(step => step.name.toLowerCase() === 'checkout code');
+if (checkoutStepIdx !== -1) {
+  workflowSteps.push({
+    name: steps[checkoutStepIdx].name,
+    uses: 'actions/checkout@v4',
+  });
+}
+
+// Always add pnpm install step after checkout
+workflowSteps.push({
+  name: 'Install pnpm',
+  run: 'corepack enable && corepack prepare pnpm@latest --activate',
+});
+
+// Add the rest of the steps (excluding checkout)
+steps.forEach((step, idx) => {
+  if (step.name.toLowerCase() === 'checkout code') return;
+  workflowSteps.push({
     name: step.name,
     run: `${step.command} && sleep ${step.duration}`,
-  };
+  });
 });
 
 const workflow = {

@@ -10,6 +10,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+      - name: Install pnpm
+        run: corepack enable && corepack prepare pnpm@latest --activate
       - name: Install dependencies
         run: pnpm install && sleep 10
       - name: Run unit tests
