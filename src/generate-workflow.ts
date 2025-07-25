@@ -109,8 +109,10 @@ if (fs.existsSync(pkgPath)) {
   rl.question(`Overwrite/add scripts in package.json? (${steps.map(step => step.command).join(', ')}) [y/N]: `, answer => {
     if (answer.trim().toLowerCase() === 'y') {
       steps.forEach(step => {
-        pkg.scripts = pkg.scripts || {};
-        pkg.scripts[step.command] = `sleep ${step.duration}`;
+        if(step.command !== "install") {
+          pkg.scripts = pkg.scripts || {};
+            pkg.scripts[step.command] = `sleep ${step.duration}`;
+        }
       });
       fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + '\n', 'utf-8');
       console.log(`Overwritten/added scripts in package.json: ${steps.map(step => step.command).join(', ')}`);
