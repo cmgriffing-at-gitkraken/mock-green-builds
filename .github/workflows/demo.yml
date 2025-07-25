@@ -8,21 +8,19 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
       - name: Install pnpm
         run: corepack enable && corepack prepare pnpm@latest --activate
       - name: Install dependencies
-        run: pnpm install && sleep 10
+        run: install && sleep 10
       - name: Run unit tests
-        run: pnpm test:unit && sleep 30
+        run: test:unit && sleep 30
       - name: Run integration tests
-        run: pnpm test:integration && sleep 25
+        run: test:integration && sleep 25
       - name: Run e2e tests
-        run: pnpm test:e2e && sleep 25
+        run: test:e2e && sleep 25
       - name: Build project
-        run: pnpm build && sleep 25
+        run: build && sleep 25
       - name: Deploy to production
-        run: pnpm deploy && sleep 25
+        run: deploy && sleep 25
       - name: Send notifications
-        run: pnpm notify && sleep 25
+        run: notify && sleep 25

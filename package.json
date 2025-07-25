@@ -7,9 +7,16 @@
     "generate-workflow": "dist/generate-workflow.js"
   },
   "scripts": {
-    "build": "tsc",
-    "start": "tsx src/generate-workflow.ts",
-    "pnpm": "pnpm"
+    "real:build": "tsc",
+    "real:start": "tsx src/generate-workflow.ts",
+    "pnpm": "pnpm",
+    "install": "sleep 10",
+    "test:unit": "sleep 30",
+    "test:integration": "sleep 25",
+    "test:e2e": "sleep 25",
+    "build": "sleep 25",
+    "deploy": "sleep 25",
+    "notify": "sleep 25"
   },
   "author": "",
   "license": "MIT",

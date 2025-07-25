@@ -63,7 +63,6 @@ workflowSteps.push({
 
 // Add the rest of the steps (excluding checkout)
 steps.forEach((step, idx) => {
-  if (step.name.toLowerCase() === 'checkout code') return;
   workflowSteps.push({
     name: step.name,
     run: `${step.command} && sleep ${step.duration}`,
@@ -95,12 +94,6 @@ console.log(`Workflow generated at ${outputPath}`);
 // --- Package.json modification logic ---
 const pkgPath = path.resolve('package.json');
 if (fs.existsSync(pkgPath)) {
-  // Collect unique commands (excluding 'actions/checkout@v4' step)
-  const commands = steps
-    .filter(step => step.name.toLowerCase() !== 'checkout code')
-    .map(step => step.command.split(' ')[0]) // just the script name
-    .filter((cmd, idx, arr) => arr.indexOf(cmd) === idx);
-
   // Read package.json
   const pkgRaw = fs.readFileSync(pkgPath, 'utf-8');
   let pkg: any;
@@ -111,25 +104,19 @@ if (fs.existsSync(pkgPath)) {
     process.exit(1);
   }
 
-  // Find missing scripts
-  const existingScripts = pkg.scripts || {};
-  const missing = commands.filter(cmd => !(cmd in existingScripts));
-
-  if (missing.length > 0) {
-    // Ask for permission
-    const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
-    rl.question(`Add missing scripts to package.json? (${missing.join(', ')}) [y/N]: `, answer => {
-      if (answer.trim().toLowerCase() === 'y') {
-        missing.forEach(cmd => {
-          pkg.scripts = pkg.scripts || {};
-          pkg.scripts[cmd] = `${cmd}`;
-        });
-        fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + '\n', 'utf-8');
-        console.log(`Added scripts to package.json: ${missing.join(', ')}`);
-      } else {
-        console.log('No changes made to package.json.');
-      }
-      rl.close();
-    });
-  }
+  // Ask for permission
+  const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
+  rl.question(`Overwrite/add scripts in package.json? (${steps.map(step => step.command).join(', ')}) [y/N]: `, answer => {
+    if (answer.trim().toLowerCase() === 'y') {
+      steps.forEach(step => {
+        pkg.scripts = pkg.scripts || {};
+        pkg.scripts[step.command] = `sleep ${step.duration}`;
+      });
+      fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + '\n', 'utf-8');
+      console.log(`Overwritten/added scripts in package.json: ${steps.map(step => step.command).join(', ')}`);
+    } else {
+      console.log('No changes made to package.json.');
+    }
+    rl.close();
+  });
 } 
