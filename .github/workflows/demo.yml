@@ -9,10 +9,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        run: echo "Checkout code" && sleep 5
+        run: echo "Checkout code" && sleep 30
       - name: Install dependencies
-        run: echo "Install dependencies" && sleep 10
-      - name: Running unit tests
-        run: echo "Running unit tests" && sleep 30
+        run: echo "Install dependencies" && sleep 60
+      - name: Run unit tests
+        run: echo "Run unit tests" && sleep 30
+      - name: Run integration tests
+        run: echo "Run integration tests" && sleep 25
+      - name: Run e2e tests
+        run: echo "Run e2e tests" && sleep 25
       - name: Build project
-        run: echo "Build project" && sleep 15
+        run: echo "Build project" && sleep 25
+      - name: Deploy to production
+        run: echo "Deploy to production" && sleep 25
+      - name: Send notifications
+        run: echo "Send notifications" && sleep 25
