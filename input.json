@@ -1,12 +1,12 @@
 {
   "steps": [
-    { "name": "Checkout code", "duration": 30 },
-    { "name": "Install dependencies", "duration": 60 },
-    { "name": "Run unit tests", "duration": 30 },
-    { "name": "Run integration tests", "duration": 25 },
-    { "name": "Run e2e tests", "duration": 25 },
-    { "name": "Build project", "duration": 25 },
-    { "name": "Deploy to production", "duration": 25 },
-    { "name": "Send notifications", "duration": 25 }
+    { "name": "Checkout code", "duration": 5, "command": "checkout" },
+    { "name": "Install dependencies", "duration": 10, "command": "pnpm install" },
+    { "name": "Run unit tests", "duration": 30, "command": "pnpm test:unit" },
+    { "name": "Run integration tests", "duration": 25, "command": "pnpm test:integration" },
+    { "name": "Run e2e tests", "duration": 25, "command": "pnpm test:e2e" },
+    { "name": "Build project", "duration": 25, "command": "pnpm build" },
+    { "name": "Deploy to production", "duration": 25, "command": "pnpm deploy" },
+    { "name": "Send notifications", "duration": 25, "command": "pnpm notify" }
   ]
 } 

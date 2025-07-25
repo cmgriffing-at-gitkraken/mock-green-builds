@@ -8,7 +8,8 @@
   },
   "scripts": {
     "build": "tsc",
-    "start": "tsx src/generate-workflow.ts"
+    "start": "tsx src/generate-workflow.ts",
+    "pnpm": "pnpm"
   },
   "author": "",
   "license": "MIT",
@@ -21,4 +22,4 @@
     "yaml": "^2.3.0",
     "zod": "^3.22.4"
   }
-} 
+}
