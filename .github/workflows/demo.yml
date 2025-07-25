@@ -1,5 +1,6 @@
 name: Demo Build
 on:
+  workflow_dispatch: {}
   push:
     branches:
       - main
@@ -7,6 +8,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
       - name: Install pnpm
         run: corepack enable && corepack prepare pnpm@latest --activate
       - name: Install dependencies

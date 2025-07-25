@@ -47,13 +47,10 @@ const steps = parsed.data.steps;
 const workflowSteps: any[] = [];
 
 // Add checkout step if present
-const checkoutStepIdx = steps.findIndex(step => step.name.toLowerCase() === 'checkout code');
-if (checkoutStepIdx !== -1) {
-  workflowSteps.push({
-    name: steps[checkoutStepIdx].name,
-    uses: 'actions/checkout@v4',
-  });
-}
+workflowSteps.push({
+  name: "Checkout repo",
+  uses: "actions/checkout@v4"
+})
 
 // Always add pnpm install step after checkout
 workflowSteps.push({
